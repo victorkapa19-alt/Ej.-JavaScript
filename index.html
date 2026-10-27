@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios en JavaScript</title>
+    <style>
+        :root {
+            --primary: #0d9488;         /* Verde agua profundo / Teal */
+            --primary-hover: #0f766e;   /* Verde agua oscuro */
+            --accent: #0284c7;          /* Azul acentuado */
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #134e4a 50%, #0c4a6e 100%);
+            --card-bg: #ffffff;
+            --text-main: #0f172a;       /* Tono oscuro para títulos importantes */
+            --text-muted: #475569;
+            --border-color: #ccfbf1;
+            --accent-bg: #f0fdf4;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth; /* Desplazamiento suave al hacer clic en el menú */
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #ffffff;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 0.3rem;
+            color: #99f6e4; /* Verde agua claro y brillante para el título principal */
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        header p {
+            color: #bae6fd;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        /* Menú de navegación rápida */
+        .nav-menu {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 14px;
+            padding: 1rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.6rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-menu a {
+            color: #ffffff;
+            background: rgba(13, 148, 136, 0.6);
+            padding: 0.5rem 0.9rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(153, 246, 228, 0.3);
+        }
+
+        .nav-menu a:hover {
+            background: var(--primary);
+            color: #99f6e4;
+            transform: translateY(-2px);
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.75rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.15);
+            border-top: 5px solid var(--primary);
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            color: var(--text-main); /* Tono oscuro destacado */
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+            font-weight: 700;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            margin: 2.5rem 0 1.25rem 0;
+            color: #99f6e4;
+            font-weight: 700;
+            text-align: center;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-bottom: 1.25rem;
+            background-color: #f8fafc;
+            transition: all 0.2s ease;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.15);
+        }
+
+        button {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+            box-shadow: 0 6px 15px rgba(13, 148, 136, 0.4);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background-color: var(--accent);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+            margin-top: 0.75rem;
+        }
+
+        .btn-secondary:hover {
+            background-color: #0369a1;
+            box-shadow: 0 6px 15px rgba(2, 132, 199, 0.4);
+        }
+
+        .resultado-box {
+            background-color: var(--accent-bg);
+            border: 1px solid #bbf7d0;
+            border-left: 5px solid var(--primary);
+            padding: 1.2rem;
+            margin-top: 1.25rem;
+            border-radius: 0 10px 10px 0;
+            font-size: 0.95rem;
+            color: #14532d;
+        }
+
+        .resultado-box strong {
+            display: block;
+            margin-bottom: 0.4rem;
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        /* Ajustes responsivos para celulares */
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+            .card {
+                padding: 1.25rem;
+                border-radius: 12px;
+            }
+            h1 {
+                font-size: 1.7rem;
+            }
+            .nav-menu a {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>EJERCICIOS EN JAVASCRIPT</h1>
+        </header>
+
+        <!-- MENÚ DE NAVEGACIÓN RÁPIDA -->
+        <nav class="nav-menu">
+            <a href="#ej1">1. Camellos</a>
+            <a href="#ej2">2. Melones</a>
+            <a href="#ej3">3. Cuadrática</a>
+            <a href="#ej4">4. Aproximar Pi</a>
+        </nav>
+
+        <!-- ================= EJERCICIO 1: LOS 35 CAMELLOS ================= -->
+        <h2 class="section-title">El hombre que calculaba</h2>
+        <div class="card" id="ej1">
+            <h2>Ejercicio 1: El reparto de los 35 camellos</h2>
+            <form id="formCamellos">
+                <label for="camellos">Camellos iniciales:</label>
+                <input type="number" id="camellos" value="35">
+                
+                <label for="prestado">Camello prestado:</label>
+                <input type="number" id="prestado" value="1">
+                
+                <button type="button" onclick="resolverCamellos()">Calcular Reparto</button>
+            </form>
+            <div class="resultado-box">
+                <strong>Resultado:</strong>
+                <p id="resCamellos">Haz clic en calcular para ver el reparto.</p>
+            </div>
+        </div>
+
+        <!-- ================= EJERCICIO 2: LOS 60 MELONES ================= -->
+        <div class="card" id="ej2">
+            <h2>Ejercicio 2: El problema de los 60 melones</h2>
+            <form id="formMelones">
+                <label for="m1">Melones Grupo 1 (3 x 1 dinar):</label>
+                <input type="number" id="m1" value="30">
+                
+                <label for="m2">Melones Grupo 2 (2 x 1 dinar):</label>
+                <input type="number" id="m2" value="30">
+                
+                <button type="button" onclick="resolverMelones()">Analizar Venta</button>
+            </form>
+            <div class="resultado-box">
+                <strong>Resultado:</strong>
+                <p id="resMelones">Haz clic en analizar para ver la venta.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Ejercicios de incisos</h2>
+
+        <!-- ================= EJERCICIO 3: ECUACIÓN CUADRÁTICA ================= -->
+        <div class="card" id="ej3">
+            <h2>Ejercicio 12 (3): Raíces de una Ecuación Cuadrática</h2>
+            <form id="formEjercicio12">
+                <label for="a">Coeficiente a:</label>
+                <input type="number" id="a" step="any" value="3">
+                
+                <label for="b">Coeficiente b:</label>
+                <input type="number" id="b" step="any" value="6">
+                
+                <label for="c">Coeficiente c:</label>
+                <input type="number" id="c" step="any" value="3">
+                
+                <button type="button" onclick="resolverEjercicio12()">Calcular Ecuación Personalizada</button>
+            </form>
+            <div class="resultado-box">
+                <strong>Resultado Personalizado:</strong>
+                <p id="msg12"></p>
+                <p id="res12" style="font-weight: bold;"></p>
+            </div>
+            
+            <button type="button" class="btn-secondary" onclick="resolverIncisos12()">Probar incisos (a), (b) y (c)</button>
+            <div id="incisos12" style="margin-top: 1rem;"></div>
+        </div>
+
+        <!-- ================= EJERCICIO 4 (EJERCICIO 13): APROXIMAR PI ================= -->
+        <div class="card" id="ej4">
+            <h2>Ejercicio 13 (4): Aproximar π con suma infinita</h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+                Aproximar π con la suma parcial de la serie π = √(6 × Σ 1/k²), desde k = 1 hasta N.
+            </p>
+            <form id="formPi">
+                <label for="inputN">Cantidad de términos N (1 a 1 000 000):</label>
+                <input type="number" id="inputN" value="10000" min="1">
+                
+                <button type="button" onclick="resolverEjercicio13()">Calcular aproximación</button>
+            </form>
+            <div class="resultado-box">
+                <strong>Resultado:</strong>
+                <div id="res13" style="margin-top: 0.5rem;">Haz clic en calcular para ver la aproximación.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enlace al archivo JavaScript externo (no requiere cambios) -->
+    <script src="ejercicios.js"></script>
+</body>
+</html>
